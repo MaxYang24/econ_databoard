@@ -1,12 +1,13 @@
+<!-- templates/dashboard.html -->
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Macro Dashboard</title>
+  <title>Macro Dashboard - {{ region if region else "US" }}</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 </head>
 <body>
-  <h1>US Inflation Data</h1>
+  <h1>{{ region if region else "US" }} Inflation Data</h1>
   <div>
     <h2>Latest Inflation Value: 
       {% if inflation_data %}
@@ -18,7 +19,6 @@
   </div>
   <canvas id="inflationChart" width="600" height="400"></canvas>
   <script>
-    // Pass inflation_data from Flask to JavaScript.
     const inflationData = {{ inflation_data|tojson }};
     const dates = inflationData.map(item => item[0]);
     const values = inflationData.map(item => item[1]);
@@ -39,9 +39,7 @@
         scales: {
           x: {
             type: 'time',
-            time: {
-              unit: 'month'
-            }
+            time: { unit: 'month' }
           },
           y: {
             beginAtZero: true

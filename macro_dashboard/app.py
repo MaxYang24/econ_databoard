@@ -41,5 +41,10 @@ def dashboard():
     # print("Inflation Data:", inflation_data)  # For debugging
     return render_template('dashboard.html', inflation_data=inflation_data)
 
+@app.route('/dashboard/eu')
+def dashboard_eu():
+    eu_inflation_data = get_time_series('EU', 'inflation')
+    return render_template('dashboard.html', inflation_data=eu_inflation_data, region='EU')
+
 if __name__ == '__main__':
     app.run(debug=True)
