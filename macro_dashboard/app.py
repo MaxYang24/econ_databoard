@@ -38,6 +38,7 @@ def index():
 def dashboard():
     # For demonstration, query US inflation data.
     inflation_data = get_time_series('US', 'inflation')
+    # print("Inflation Data:", inflation_data)  # For debugging
     return render_template('dashboard.html', inflation_data=inflation_data)
 
 if __name__ == '__main__':

@@ -1,13 +1,12 @@
-<!-- templates/dashboard.html -->
 <!DOCTYPE html>
 <html>
 <head>
   <title>Macro Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 </head>
 <body>
   <h1>US Inflation Data</h1>
-  <!-- Top KPI Card Example -->
   <div>
     <h2>Latest Inflation Value: 
       {% if inflation_data %}
