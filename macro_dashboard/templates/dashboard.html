@@ -1,0 +1,55 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Macro Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>US Inflation Data</h1>
+  <!-- Top KPI Card Example -->
+  <div>
+    <h2>Latest Inflation Value: 
+      {% if inflation_data %}
+        {{ inflation_data[-1][1] }}
+      {% else %}
+        N/A
+      {% endif %}
+    </h2>
+  </div>
+  <canvas id="inflationChart" width="600" height="400"></canvas>
+  <script>
+    // Pass inflation_data from Flask to JavaScript.
+    const inflationData = {{ inflation_data|tojson }};
+    const dates = inflationData.map(item => item[0]);
+    const values = inflationData.map(item => item[1]);
+
+    const ctx = document.getElementById('inflationChart').getContext('2d');
+    const inflationChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: dates,
+        datasets: [{
+          label: 'Inflation (%)',
+          data: values,
+          fill: false,
+          borderWidth: 2
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'time',
+            time: {
+              unit: 'month'
+            }
+          },
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
